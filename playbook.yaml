@@ -1,0 +1,28 @@
+- name: Linux pre-requisites
+  hosts: all
+  become: true
+  tasks:
+    - name: apt install
+      when: ansible_os_family == "Debian"
+      apt:
+        update_cache: yes
+        name:
+          - neovim
+          - git
+          - bat 
+          - tmux
+          - rsync
+          - ripgrep
+          - dnsutils
+
+- name: Proxy / HTTP things
+  hosts: proxy
+  tasks:
+    - name: apt install
+      when: ansible_os_family == "Debian"
+      apt:
+        update_cache: yes
+        name:
+          - iptables-persistent
+          - wireguard
+          - merecat

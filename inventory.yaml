@@ -1,0 +1,35 @@
+remote:
+  hosts:
+    merked.insom.me.uk:
+      ansible_user: root
+    doorstep.insom.me.uk:
+      ansible_user: root
+      ansible_host: 68.183.196.13
+    ruxton.tilde.website:
+      ansible_user: root
+    tombstone.ve3x.eu:
+
+proxy:
+  hosts:
+    doorstep.insom.me.uk:
+
+house:
+  hosts:
+    x5x:
+    noox:
+    box:
+    hip1:
+    bgp1:
+      ansible_user: root
+    bgp2:
+      ansible_user: root
+
+clients:
+  hosts:
+    t480x:
+    t440p:
+
+all:
+  vars:
+    ansible_python_interpreter: auto_silent
+    ansible_become_method: su
