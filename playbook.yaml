@@ -31,6 +31,25 @@
         src: proxy.iptables.v4
         dest: /etc/iptables/rules.v4
       notify: "reload firewall"
+    - name: wireguard config
+      copy:
+        src: proxy.wg0.conf
+        dest: /etc/wireguard/wg0.conf
+        mode: 0600
+      notify: "restart wg0"
+    - name: enable wg0
+      service:
+        name: "wg-quick@wg0"
+        enabled: true
+    - name: configure merecat
+      copy:
+        src: proxy.merecat.conf
+        dest: /etc/merecat.conf
+      notify: "restart merecat"
   handlers:
     - name: reload firewall
       shell: "/etc/init.d/netfilter-persistent reload"
+    - name: restart wg0
+      shell: "systemctl restart wg-quick@wg0"
+    - name: restart merecat
+      shell: "systemctl daemon-reload && systemctl restart merecat"
