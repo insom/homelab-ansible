@@ -1,9 +1,9 @@
 - name: Linux pre-requisites
   hosts: all
   become: true
+  gather_facts: false
   tasks:
     - name: apt install
-      when: ansible_os_family == "Debian"
       apt:
         update_cache: yes
         name:
@@ -17,12 +17,20 @@
 
 - name: Proxy / HTTP things
   hosts: proxy
+  gather_facts: false
   tasks:
     - name: apt install
-      when: ansible_os_family == "Debian"
       apt:
         update_cache: yes
         name:
           - iptables-persistent
           - wireguard
           - merecat
+    - name: ipv4 firewall
+      copy:
+        src: proxy.iptables.v4
+        dest: /etc/iptables/rules.v4
+      notify: "reload firewall"
+  handlers:
+    - name: reload firewall
+      shell: "/etc/init.d/netfilter-persistent reload"
