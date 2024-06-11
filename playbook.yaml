@@ -26,6 +26,7 @@
           - iptables-persistent
           - wireguard
           - merecat
+          - runit
     - name: ipv4 firewall
       copy:
         src: proxy.iptables.v4
@@ -75,8 +76,12 @@
       copy:
         src: proxy.traefik/
         dest: /root/traefik/
-        mode: 0600
-        directory_mode: 0700
+        mode: preserve
+    - name: traefik service directory
+      copy:
+        src: proxy.traefik-sv/
+        dest: /etc/service/traefik/
+        mode: preserve
   handlers:
     - name: reload firewall
       shell: "/etc/init.d/netfilter-persistent reload"

@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+cd /root/traefik
+export DO_AUTH_TOKEN_FILE=/root/traefik/do-creds.txt
+exec ./traefik
