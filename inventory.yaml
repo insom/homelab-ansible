@@ -1,12 +1,7 @@
 remote:
   hosts:
-    merked.insom.me.uk:
-      ansible_user: root
     doorstep.insom.me.uk:
-      ansible_user: root
-      ansible_host: 68.183.196.13
     ruxton.tilde.website:
-      ansible_user: root
     tombstone.ve3x.eu:
 
 proxy:
@@ -20,23 +15,9 @@ house:
     box:
     hip1:
     bgp1:
-      ansible_user: root
     bgp2:
-      ansible_user: root
-
-clients:
-  hosts:
-    t480x:
-    t440p:
 
 all:
   vars:
     ansible_python_interpreter: auto_silent
-    ansible_become_method: su
-    ansible_become_pass: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          66333163333530356137663962323932663439643361346436396337626230396365643038336531
-          6136626538313338656561303965373366653232653164630a653331623462643964666463366465
-          65643731633138623637393636633164323963336265646138306139363462336530333938636630
-          3130303562646538370a613932633136333430336437643830656338663333343136316233646166
-          6533
+    ansible_user: root
