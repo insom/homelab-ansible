@@ -71,6 +71,12 @@
         owner: www
         group: www-data
         mode: 0755
+    - name: traefik directory
+      copy:
+        src: proxy.traefik/
+        dest: /root/traefik/
+        mode: 0600
+        directory_mode: 0700
   handlers:
     - name: reload firewall
       shell: "/etc/init.d/netfilter-persistent reload"
