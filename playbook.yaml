@@ -46,6 +46,31 @@
         src: proxy.merecat.conf
         dest: /etc/merecat.conf
       notify: "restart merecat"
+    - name: create www user
+      user:
+        name: www
+        group: www-data
+        shell: /bin/bash
+        create_home: yes
+    - name: www SSH directory
+      file:
+        path: /home/www/.ssh
+        state: directory
+        mode: 0700
+        owner: www
+    - name: www SSH key
+      copy:
+        src: authorized_keys
+        dest: /home/www/.ssh/authorized_keys
+        mode: 0600
+        owner: www
+        directory_mode: 0700
+    - name: permission on /var/www
+      file:
+        path: /var/www
+        owner: www
+        group: www-data
+        mode: 0755
   handlers:
     - name: reload firewall
       shell: "/etc/init.d/netfilter-persistent reload"
