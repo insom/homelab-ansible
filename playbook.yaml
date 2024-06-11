@@ -27,6 +27,7 @@
           - wireguard
           - merecat
           - runit
+          - ifupdown
     - name: ipv4 firewall
       copy:
         src: proxy.iptables.v4
