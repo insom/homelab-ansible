@@ -1,0 +1,11 @@
+#cloud-config
+users:
+- name: root
+disable_root: false
+ssh_authorized_keys:
+- ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGS7Wh4GiEPkkrSjt/bI+QJXbBYJrKRNuZE5qRa+oMk2 insom@t480x
+ssh_pwauth: false
+create_hostname_file: true
+package_update: true
+packages:
+- openssh-server

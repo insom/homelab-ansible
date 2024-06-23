@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -z "${2}" ]; then
+    echo "params: ${0} <short-hostname> <ip-address>"
+    exit 1
+fi
+sed -e "s/HOSTNAME/${1}/g" < tmpl.xml > ${1}.xml
+virsh define ${1}.xml
+cp ../qcows/debian-13-generic-amd64-daily-20240622-1786.qcow2 /var/lib/libvirt/images/${1}.qcow2
+qemu-img resize /var/lib/libvirt/images/${1}.qcow2 10G
+sed -e "s/HOSTNAME/${1}/g" -e "s/IP/${2}/g" < meta-data.tmpl > meta-data
+genisoimage  -output seed.iso -volid cidata -joliet -rock user-data meta-data
+cp seed.iso /var/lib/libvirt/images/${1}-seed.iso
+chown libvirt-qemu: /var/lib/libvirt/images/${1}.qcow2
+chown libvirt-qemu: /var/lib/libvirt/images/${1}-seed.iso 
